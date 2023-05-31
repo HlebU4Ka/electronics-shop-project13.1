@@ -19,7 +19,7 @@ class Item:
         self.__name = name
         self.price = float(price)
         self.quantity = int(quantity)
-        Item.all.append(self)
+
 
     @property
     def name(self):
@@ -29,9 +29,9 @@ class Item:
     def name(self, value):
         self.__name = value
         if len(value) <= 10:
-            return value
+            self.__name = value
         else:
-            print("наименованиe товара больше 10 симвовов")
+            print("наименованиe товара больше 10 символов")
 
     def calculate_total_price(self) -> float:
         """
@@ -68,9 +68,10 @@ class Item:
         return cls.all
 
     @staticmethod
-    def string_to_number(value):
+    def string_to_number(string):
         try:
-            return float(value), int(value)
+            return int(float(string))
+
         except ValueError:
             print("Не преобразовать в строку")
             return None
