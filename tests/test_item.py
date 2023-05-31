@@ -6,12 +6,11 @@ from src.item import Item
 
 @pytest.fixture
 def item1_2():
-
     Item.pay_rate = 1.0
     return Item("Декстоп", 40000, 1), Item("Клавиатура", 5000, 1)
 
-def test_name(item1_2):
 
+def test_name(item1_2):
     assert item1_2[0].name == "Декстоп"
     assert item1_2[1].name == "Клавиатура"
 
@@ -26,4 +25,26 @@ def test_discount(item1_2):
     assert item1_2[1].apply_discount() == 5000
 
 
+def test_csv():
+    items = Item.instantiate_from_csv()
 
+    assert len(items) == 5
+
+    assert items[0].name == "Смартфон"
+    assert items[0].price == 100.0
+    assert items[0].quantity == 1
+
+
+def test_getter_name():
+    item = Item("Товар", 9.99, 10)
+
+    assert item.name == "Товар"
+    assert item.price == 9.99
+    assert item.quantity == 10
+
+
+def test_setter():
+    item = Item("Товар", 9.99, 10)
+
+    assert item.name == "Товар" # name длина не превышает 10
+    item.name = "name длина не превышает"
