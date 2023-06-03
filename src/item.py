@@ -21,6 +21,9 @@ class Item:
         self.quantity = int(quantity)
         Item.all.append(self)
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}('{self.__name}', {int(self.price)}, {self.quantity})"
+
     def __str__(self):
         """Возвращает данные для пользователя"""
         return self.__name
@@ -69,7 +72,6 @@ class Item:
                 cls(name, price, quantity)
 
 
-
     @staticmethod
     def string_to_number(string):
         try:
@@ -78,3 +80,5 @@ class Item:
         except ValueError:
             print("Не преобразовать в строку")
             return None
+
+
