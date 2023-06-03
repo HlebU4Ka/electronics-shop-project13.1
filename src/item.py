@@ -20,6 +20,7 @@ class Item:
         self.price = float(price)
         self.quantity = int(quantity)
         Item.all.append(self)
+
     def __str__(self):
         """Возвращает данные для пользователя"""
         return self.__name
@@ -65,10 +66,8 @@ class Item:
                 name = row["name"]
                 price = cls.string_to_number(float(row["price"]))
                 quantity = cls.string_to_number(int(row["quantity"]))
-                item = cls(name, price, quantity)
-                all.append(item)
+                cls(name, price, quantity)
 
-            return cls.all
 
 
     @staticmethod
