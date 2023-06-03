@@ -19,7 +19,10 @@ class Item:
         self.__name = name
         self.price = float(price)
         self.quantity = int(quantity)
-
+        Item.all.append(self)
+    def __str__(self):
+        """Возвращает данные для пользователя"""
+        return self.__name
 
     @property
     def name(self):
@@ -27,8 +30,7 @@ class Item:
 
     @name.setter
     def name(self, value):
-        self.__name = value
-        if len(value) <= 10:
+        if len(value) < 11:
             self.__name = value
         else:
             print("наименованиe товара больше 10 символов")
@@ -54,18 +56,20 @@ class Item:
     def instantiate_from_csv(cls):
 
         file = "..\src\items.csv"
+        cls.all = []
 
         with open(file, "r", encoding="cp1251") as file:
             reader = csv.DictReader(file)
 
             for row in reader:
                 name = row["name"]
-                price = float(row["price"])
-                quantity = int(row["quantity"])
+                price = cls.string_to_number(float(row["price"]))
+                quantity = cls.string_to_number(int(row["quantity"]))
                 item = cls(name, price, quantity)
-                cls.all.append(item)
+                all.append(item)
 
-        return cls.all
+            return cls.all
+
 
     @staticmethod
     def string_to_number(string):
