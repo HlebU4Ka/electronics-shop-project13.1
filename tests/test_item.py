@@ -48,3 +48,17 @@ def test_setter():
 
     assert item.name == "Товар" # name длина не превышает 10
     item.name = "name длина не превышает"
+
+
+def test_repr_str():
+    item = Item("Строка", 10000, 20)
+    assert repr(item) == "Item('Строка', 10000, 20)"
+    assert str(item) == "Строка"
+
+    item2 = Item("Товар", 500, 10)
+    assert repr(item2) == "Item('Товар', 500, 10)"
+    assert str(item2) == "Товар"
+
+    item3 = Item("Продукт", 250, 5)
+    assert repr(item3) == "Item('Продукт', 250, 5)"
+    assert str(item3) == "Продукт"
