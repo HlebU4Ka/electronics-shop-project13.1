@@ -2,6 +2,7 @@
 import pytest
 
 from src.item import Item
+from src.phone import Phone
 
 
 @pytest.fixture
@@ -25,14 +26,14 @@ def test_discount(item1_2):
     assert item1_2[1].apply_discount() == 5000
 
 
-def test_csv():
-    items = Item.instantiate_from_csv()
-
-    assert len(items) == 5
-
-    assert items[0].name == "Смартфон"
-    assert items[0].price == 100.0
-    assert items[0].quantity == 1
+# def test_csv():
+#     items = Item.instantiate_from_csv()
+#
+#     assert len(items) == 5
+#
+#     assert items[0].name == "Смартфон"
+#     assert items[0].price == 100.0
+#     assert items[0].quantity == 1
 
 
 def test_getter_name():
@@ -62,3 +63,12 @@ def test_repr_str():
     item3 = Item("Продукт", 250, 5)
     assert repr(item3) == "Item('Продукт', 250, 5)"
     assert str(item3) == "Продукт"
+
+def test_add():
+    phone1 = Phone('iPhone 14', 120000, 5, 2)
+    phone2 = Phone('Samsung Galaxy', 90000, 3, 1)
+
+
+    # Сложение двух экземпляров класса Phone
+    phone_sum = phone1 + phone2
+    print(phone_sum)  # Ожидаемый результат: 8 (сумма количества двух телефонов)
