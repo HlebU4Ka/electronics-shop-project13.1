@@ -71,6 +71,10 @@ class Item:
                 quantity = cls.string_to_number(int(row["quantity"]))
                 cls(name, price, quantity)
 
+    def __add__(self, other):
+        if isinstance(other, Item):
+            return self.quantity + other.quantity
+
 
     @staticmethod
     def string_to_number(string):
@@ -80,5 +84,6 @@ class Item:
         except ValueError:
             print("Не преобразовать в строку")
             return None
+
 
 
