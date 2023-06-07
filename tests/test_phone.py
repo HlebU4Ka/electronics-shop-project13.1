@@ -15,17 +15,17 @@ def test_valid_symbol():
     phone1 = Phone('iPhone 14', 120000, 5, 2)
 
     # Проверка валидного количества SIM-карт
-    valid_sim = phone1.validate_number_of_sim(2)
+    valid_sim = validate_number_of_sim(2)
     print(valid_sim)  # Ожидаемый результат: 2
 
     # Проверка невалидного количества SIM-карт (меньше нуля)
     try:
-        invalid_sim = phone1.validate_number_of_sim(-1)
+        invalid_sim = validate_number_of_sim(-1)
     except ValueError as e:
         print(e)  # Ожидаемое исключение.
 
     # Проверка невалидного количества SIM-карт (нецелое число)
     try:
-        invalid_sim = phone1.validate_number_of_sim(1.5)
+        invalid_sim = validate_number_of_sim(1.5)
     except ValueError as e:
         print(e)  # Ожидаемое исключение.
