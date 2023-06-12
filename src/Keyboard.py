@@ -1,26 +1,26 @@
 from src.item import Item
 
 
-class Keyboard(Item):
-
-    def __init__(self, name: str, price: float, quantity: int):
-        super().__init__(name, price, quantity)
-        self.language = "EN"
-
-    def change_lang(self, language):
-        if language in ["EN", "RU"]:
-            self.language = language
-            print(f"The keyboard language has been changed to {language}")
-        else:
-            print("Invalid language. Only EN and RU languages are supported.")
+class langs_Mixin:
+    langs = ["EN", "RU"]
+    __language = langs[0]
 
     @property
     def language(self):
-        return self._language
+        return self.__language
 
-    @language.setter
-    def language(self, new_lang):
-        if new_lang in ["EN", "RU"]:
-            self._language = new_lang
-        else:
-            raise AttributeError("")
+    @classmethod
+    def change_lang(cls):
+        cls.langs = [cls.langs[1], cls.langs[0]]
+        cls.__language = cls.langs[0]
+        return cls
+
+
+class Keyboard(langs_Mixin, Item):
+
+    def __init__(self, __name: str, price: float, quantity: int):
+        super().__init__(__name, price, quantity)
+
+
+
+
