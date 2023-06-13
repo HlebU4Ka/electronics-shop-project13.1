@@ -1,14 +1,25 @@
-from src.Keyboard import Keyboard, langs_Mixin
+from src.Keyboard import Keyboard
+import unittest
 
-kb = Keyboard('Dark Project KD87A', 9600, 5)
-assert str(kb) == "Dark Project KD87A"
 
-assert str(kb.language) == "EN"
+class KeyboardTests(unittest.TestCase):
+    def setUp(self):
+        self.keyboard = Keyboard("Wireless Keyboard", 29.99, 10)
 
-kb.change_lang()
-assert str(kb.language) == "RU"
+    def test_keyboard_properties(self):
+        self.assertEqual(self.keyboard.name, "Wireless Keyboard")
+        self.assertEqual(self.keyboard.price, 29.99)
+        self.assertEqual(self.keyboard.quantity, 10)
 
-# Сделали RU -> EN -> RU
-kb.change_lang().change_lang()
-assert str(kb.language) == "RU"
+    def test_keyboard_language_default(self):
+        self.assertEqual(self.keyboard.language, "EN")
 
+    def test_keyboard_change_language(self):
+        self.keyboard.change_lang()
+        self.assertEqual(self.keyboard.language, "RU")
+        self.keyboard.change_lang()
+        self.assertEqual(self.keyboard.language, "EN")
+
+
+if __name__ == "__main__":
+    unittest.main()
