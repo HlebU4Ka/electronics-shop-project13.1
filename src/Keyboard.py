@@ -11,8 +11,7 @@ class langs_Mixin:
 
     @classmethod
     def change_lang(cls):
-        cls.langs = [cls.langs[1], cls.langs[0]]
-        cls.__language = cls.langs[0]
+        cls.__language = "RU" if cls.__language == "EN" else "EN"
         return cls
 
 
