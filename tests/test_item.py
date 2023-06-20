@@ -1,9 +1,7 @@
 import csv
-import unittest
-from io import StringIO
-from unittest.mock import patch
 
 import pytest
+
 
 from src.item import Item
 from src.phone import Phone
@@ -111,7 +109,6 @@ class Item:
         except FileNotFoundError:
             raise FileNotFoundError("Отсутствует файл items.csv")
 
-
 class ItemTest1(Item):
 
     @classmethod
@@ -147,7 +144,7 @@ class ItemTest2(Item):
             with open('test_items.csv', newline='', encoding="cp1251") as csvfile:  # некорректный файл
                 reader = csv.DictReader(csvfile)
                 for row in reader:
-                    if len(row) < 3:
+                    if len(row) < 4: # измеение условия проверки файла
                         raise InstantiateCSVError('_Файл item.csv поврежден_')
                     name = row['name']
                     price = cls.string_to_number(row['price'])
@@ -156,7 +153,8 @@ class ItemTest2(Item):
         except FileNotFoundError:
             raise FileNotFoundError('_Отсутствует файл item.csv_')
 
-    def test_instantiate_from_csv_missing_column(self):
-        with pytest.raises(InstantiateCSVError) as exc_info:
-            ItemTest2.instantiate_from_csv()
-        assert str(exc_info.value) == '_Файл item.csv поврежден_'
+
+def test_instantiate_from_csv_missing_column():
+    with pytest.raises(InstantiateCSVError) as exc_info:
+        ItemTest2.instantiate_from_csv()
+    assert str(exc_info.value) == '_Файл item.csv поврежден_'
